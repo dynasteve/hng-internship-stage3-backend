@@ -1,4 +1,4 @@
-### Country Currency & Exchange API
+# Country Currency & Exchange API
 
 A RESTful API that fetches country data, caches it in a database, computes estimated GDP, and serves summary data with a generated image.
 
@@ -30,43 +30,44 @@ GET | /status |  Show total countries and last refresh timestamp
 
 ## Setup
 
-# Clone the repo
+### Clone the repo
 ```bash
 git clone https://github.com/yourusername/country-api.git
 cd country-api
 ```
 
-# Create virtual environment & install dependencies
+### Create virtual environment & install dependencies
 ```bash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-# Set environment variables
+### Set environment variables
 Create a .env file:
 ```bash
 DATABASE_URL=postgresql://user:password@localhost:5432/countrydb
 ```
 
-# Run the server
+### Run the server
 ```bash
 uvicorn app.main:app --reload
 ```
 
-# Access API documentation
+### Access API documentation
 Visit http://127.0.0.1:8000/docs
+
 ---
 
 ## Example Usage
 
-# Refresh countries
+### Refresh countries
 GET http://127.0.0.1:8000/countries/refresh
 
-# Get all countries in Africa
+### Get all countries in Africa
 GET http://127.0.0.1:8000/countries?region=Africa
 
-# Get summary image
+### Get summary image
 GET http://127.0.0.1:8000/countries/image
 
 
