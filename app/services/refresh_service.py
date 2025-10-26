@@ -69,3 +69,18 @@ async def refresh_country_data(db: Session):
 
     print(f"✅ Refreshed {len(countries)} countries.")
     return {"message": f"{len(countries)} countries refreshed successfully."}
+
+async def fetch_exchange_rates() -> dict:
+    """Fetch USD exchange rates from external API."""
+    async with httpx.AsyncClient(timeout=10) as client:
+        response = await client.get(EXCHANGE_API)
+        if response.status_code != 200:
+            raise Exception(f"Exchange API error: {response.status_code}")
+        data = response.json()
+        return data.get("rates", {})
+
+
+def calculate_estimated_gdp(population: int, exchange_rate: float) -> float:
+    """Calculate estimated GDP with a random multiplier."""
+    multiplier = random.randint(1000, 2000)
+    return population * multiplier / exchange_rate
