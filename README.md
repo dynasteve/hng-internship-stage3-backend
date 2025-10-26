@@ -15,11 +15,8 @@ A RESTful API that fetches country data, caches it in a database, computes estim
 Method | Endpoint | Description
 --- | --- | ---
 GET | /countries/refresh  | Fetch countries & exchange rates, update DB, generate summary image
---- | --- | ---
 GET | /countries  | Get all countries (optional filters: region, currency; optional sort: gdp_desc, population_asc, etc.)
---- | --- | ---
 GET | /countries/{name} | Get a single country by name
---- | --- | ---
 DELETE  | /countries/{name} | Delete a country by name
 GET | /countries/image  | Serve the summary image (cache/summary.png)
 GET | /status |  Show total countries and last refresh timestamp
