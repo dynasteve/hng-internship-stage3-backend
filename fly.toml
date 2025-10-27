@@ -1,13 +1,11 @@
-# fly.toml app configuration file generated for country-api on 2025-10-26T14:39:47+01:00
+# fly.toml app configuration file generated for hng-backend-stage3 on 2025-10-27T02:22:26+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'country-api'
+app = 'hng-backend-stage3'
 primary_region = 'jnb'
 
-[build]
-  builder = 'paketobuildpacks/builder:base'
 
 [env]
   PORT = '8080'
