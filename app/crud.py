@@ -24,7 +24,11 @@ def refresh_countries(db: Session, countries_data: list):
     # Loop through all countries
     for country in countries_data:
         name = country.get("name", {}).get("common") or country.get("name")
-        capital = country.get("capital", [None])[0] if isinstance(country.get("capital"), list) else country.get("capital")
+        capital = (
+            country.get("capital", [None])[0]
+            if isinstance(country.get("capital"), list)
+            else country.get("capital")
+        )
         region = country.get("region")
         population = country.get("population", 0)
         flag_url = country.get("flags", {}).get("png") or country.get("flag")
@@ -47,7 +51,11 @@ def refresh_countries(db: Session, countries_data: list):
             estimated_gdp = 0
 
         # Check if exists
-        existing = db.query(models.Country).filter(func.lower(models.Country.name) == name.lower()).first()
+        existing = (
+            db.query(models.Country)
+            .filter(func.lower(models.Country.name) == name.lower())
+            .first()
+        )
         if existing:
             # Update
             existing.capital = capital
@@ -80,7 +88,12 @@ def refresh_countries(db: Session, countries_data: list):
 # Generate summary image
 # -------------------------------
 def generate_summary_image(db: Session):
-    countries = db.query(models.Country).order_by(models.Country.estimated_gdp.desc()).limit(5).all()
+    countries = (
+        db.query(models.Country)
+        .order_by(models.Country.estimated_gdp.desc())
+        .limit(5)
+        .all()
+    )
     total = db.query(models.Country).count()
     timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
 
@@ -105,9 +118,23 @@ def generate_summary_image(db: Session):
     img.save(output_path)
     return output_path
 
+
+# -------------------------------
+# Get country by name
+# -------------------------------
 def get_country_by_name(db: Session, name: str):
     return (
         db.query(models.Country)
         .filter(func.lower(models.Country.name) == name.lower())
         .first()
     )
+
+
+# -------------------------------
+# Create country object (for refresh endpoint)
+# -------------------------------
+def create_country_obj(country_dict):
+    """
+    Utility to create a Country SQLAlchemy object from a dict.
+    """
+    return models.Country(**country_dict)
